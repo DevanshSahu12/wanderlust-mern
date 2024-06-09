@@ -1,9 +1,10 @@
 <% layout('/layouts/boilerplate') %>
 <body>
+    <br />
+    <h1>NEW LISTING</h1>
     <form method="POST" action="/listings">
         <div class="col col-8 offset-2">
-            <br />
-            <h1>NEW LISTING</h1>
+            
             <div>
                 <label for="title" class="form-label">Title</label>
                 <input name="title" placeholder="Enter Title" type="text" class="form-control"><br>
@@ -30,7 +31,7 @@
                 <label for="location" class="form-label">Location</label>
                 <input name="location" placeholder="Enter Location" type="text"class="form-control"><br>
             </div>
-            <button class="btn btn-dark add-btn">Submit</button>
+            <button class="btn btn-dark add-btn mb-2">Submit</button>
         </div>
     </form>
 </body>

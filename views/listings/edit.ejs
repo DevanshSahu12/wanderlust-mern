@@ -1,13 +1,36 @@
-<% layout("/layouts/boilerplate.ejs") %>
+<% layout("/layouts/boilerplate") %>
 <body>
-    <h3>EDIT LISTING</h3>
+    <br />
+    <h1>EDIT LISTING</h1>
     <form method="POST" action="/listings/<%=thisListing._id%>?_method=PUT">
-        <input name="title" placeholder="Enter Title" type="text" value="<%=thisListing.title%>"><br>
-        <textarea name="description" placeholder="Enter Description" rows="8" cols="50"><%=thisListing.description%></textarea><br>
-        <input name="image" placeholder="Enter Image URL" type="text" value="<%=thisListing.image%>"><br>
-        <input name="price" placeholder="Enter Price" type="number" value="<%=thisListing.price%>"><br>
-        <input name="country" placeholder="Enter Country" type="text" value="<%=thisListing.country%>"><br>
-        <input name="location" placeholder="Enter Location" type="text" value="<%=thisListing.location%>"><br>
-        <button>Submit</button>
+        <div class="col col-8 offset-2">
+            <div>
+                <label for="title" class="form-label">Title</label>
+                <input name="title" placeholder="Enter Title" type="text" value="<%=thisListing.title%>" class="form-control"><br>
+            </div>
+            <div>
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" placeholder="Enter Description" class="form-control"><%=thisListing.description%></textarea><br>
+            </div>
+            <div>
+                <label for="image" class="form-label">Image URL</label>
+                <input name="image" placeholder="Enter Image URL" type="text" value="<%=thisListing.image%>" class="form-control"><br>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="price" placeholder="Enter Price" type="number" value="<%=thisListing.price%>" class="form-control"><br>
+                </div>
+                <div class="col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="country" placeholder="Enter Country" type="text" value="<%=thisListing.country%>" class="form-control"><br>
+                </div>
+            </div>
+            <div>
+                <label for="location" class="form-label">Location</label>
+                <input name="location" placeholder="Enter Location" type="text" value="<%=thisListing.location%>" class="form-control"><br>
+            </div>
+            <button class="btn btn-dark add-btn">Submit</button>
+        </div>
     </form>
 </body>

@@ -2,7 +2,7 @@
     <body>
         <br />
         <h1>LISTINGS</h1>
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1">
             <%for(let thisListing of allListings){%>
             <div class="card col" style="width: 18rem;">
                 <a href="http://localhost:8080/listings/<%=thisListing._id%>" class="listing-link">
@@ -10,7 +10,7 @@
                     <div class="card-img-overlay"></div>
                     <div class="card-body">
                     <h5 class="card-title"><%=thisListing.title%></h5>
-                    <p class="card-text"><%=thisListing.description%><br />&#8377;<%=thisListing.price.toLocaleString('en-IN')%> / night</p>
+                    <p class="card-text">&#8377;<%=thisListing.price.toLocaleString('en-IN')%> / night</p>
                     </div>
                 </a>
             </div>
