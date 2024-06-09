@@ -34,7 +34,7 @@ main().then(()=>{
 })
 
 app.get("/", (req, res)=>{
-    res.render('boilerplate.ejs')
+    res.send('This is root...')
 })
 
 app.get("/testListing", async (req, res) => {
