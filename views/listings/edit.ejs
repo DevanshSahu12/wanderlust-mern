@@ -1,0 +1,13 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+    <h1>EDIT LISTING</h1>
+    <form method="POST" action="/listings/<%=thisListing._id%>?_method=PUT">
+        <input name="title" placeholder="Enter Title" type="text" value="<%=thisListing.title%>"><br>
+        <textarea name="description" placeholder="Enter Description" rows="8" cols="50"><%=thisListing.description%></textarea><br>
+        <input name="image" placeholder="Enter Image URL" type="text" value="<%=thisListing.image%>"><br>
+        <input name="price" placeholder="Enter Price" type="number" value="<%=thisListing.price%>"><br>
+        <input name="country" placeholder="Enter Country" type="text" value="<%=thisListing.country%>"><br>
+        <input name="location" placeholder="Enter Location" type="text" value="<%=thisListing.location%>"><br>
+        <button>Submit</button>
+    </form>
+</body>
