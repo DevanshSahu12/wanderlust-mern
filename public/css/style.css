@@ -95,3 +95,19 @@ body{
     background-color: #fe424d !important;
     border: none !important;
 }
+
+/* Error Page */
+.error-div{
+    height:45rem;
+    display:flex !important;
+    align-items: center !important;
+}
+
+.error-code{
+    font-size: 8rem !important;
+    color: #fe424d !important;
+}
+
+.error-card{
+    text-align: center;
+}
