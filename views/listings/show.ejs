@@ -3,6 +3,7 @@
     <br />
     <h1>LISTING DETAILS</h1>
     <div class="row mx-auto">
+
         <div class="card" style="width: 18rem;">
             <img src="<%=thisListing.image%>" class="card-img-top img-show" alt="listing_image">
             <div class="card-body">
@@ -25,5 +26,45 @@
                 </div>
             </div>
         </div>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h3 class="card-title">Leave a Review!</h3>
+                <form method="POST" action="/listings/<%=thisListing._id%>/reviews" class="needs-validation" novalidate>
+                    <div class="card-text">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"/>
+                    </div>
+                    <div class="card-text">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea id="comment" name="review[comment]" class="form-control mb-3" required></textarea>
+                        <div class="invalid-feedback">Please enter a comment</div><br>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-dark add-btn mb-2">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h3 class="card-title">All Reviews</h3>
+                <% for(const review of thisListing.reviews) { %>
+                    <div class="card" style="width: 16rem;">
+                        <br />
+                        <h5 class="card-title "> Review waala </h5>
+                        <p class="card-text">
+                            Rating: <%= review.rating %><br />
+                            Comment: <%= review.comment %>
+                        </p>
+                        <form method="POST" action="/listings/<%=thisListing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                            <button class="btn btn-dark">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+        </div>
     </div>
+
 </body>
