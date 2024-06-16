@@ -3,6 +3,9 @@ const mongoose = require("mongoose")
 const ejsMate = require('ejs-mate')
 const path = require("path")
 const methodOverride = require("method-override")
+const cookieParser = require("cookie-parser")
+const session = require('express-session')
+const flash = require('connect-flash')
 
 const ExpressError = require("./utils/ExpressError.js")
 
@@ -41,9 +44,31 @@ main().then(()=>{
     console.log(err)
 })
 
+// Init Session
+const sessionOptions = {
+    secret: "secretCode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+    }
+}
+
 // Root
 app.get("/", (req, res)=>{
     res.send('This is root...')
+})
+
+// Sessions and Flash
+app.use(session(sessionOptions))
+app.use(flash())
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success")
+    res.locals.error = req.flash("error")
+    next()
 })
 
 // Routes
