@@ -6,8 +6,11 @@ const methodOverride = require("method-override")
 const cookieParser = require("cookie-parser")
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const localStrategy = require('passport-local')
 
 const ExpressError = require("./utils/ExpressError.js")
+const User = require('./models/user.js')
 
 const listings = require('./routes/listing.js')
 const reviews = require('./routes/review.js')
