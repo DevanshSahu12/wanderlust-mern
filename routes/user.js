@@ -45,7 +45,6 @@ router.get('/logout', (req, res, next) => {
         if(err) {
             return next()
         }
-        console.log("hi")
         req.flash("success", "You have logged out!")
         res.redirect("/listings")
     })
