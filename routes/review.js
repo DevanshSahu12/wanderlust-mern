@@ -4,10 +4,10 @@ const wrapAsync = require('../utils/wrapAsync.js')
 const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware.js')
 const reviewController = require('../controllers/review.js')
 
-// New
-router.post("/", isLoggedIn, validateReview, wrapAsync(reviewController.newReview))
+router.route("/")
+    .post(isLoggedIn, validateReview, wrapAsync(reviewController.newReview))
 
-// Delete
-router.delete("/:reviewId", isLoggedIn, isReviewAuthor, wrapAsync(reviewController.deleteReview))
+router.route("/:reviewId")
+    .delete(isLoggedIn, isReviewAuthor, wrapAsync(reviewController.deleteReview))
 
 module.exports = router
