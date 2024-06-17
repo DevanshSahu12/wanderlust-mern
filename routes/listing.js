@@ -16,6 +16,15 @@ const validateListing = (req, res, next) => {
     }
 }
 
+// Login Check
+const isLoggedIn = (req, res, next) => {
+    if(!req.isAuthenticated()) {
+        req.flash("error", "You must be logged in to create a new listing")
+        return res.redirect("/user/login")
+    }
+    next()
+}
+
 // All Listings
 router.get("/", wrapAsync(async (req, res) => {
     const allListings = await Listing.find({})
@@ -23,11 +32,11 @@ router.get("/", wrapAsync(async (req, res) => {
 }))
 
 // Create New Listing
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {  
     res.render("./listings/new.ejs")
 })
 
-router.post("/", validateListing, wrapAsync(async (req, res) => {
+router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     let newListing = new Listing(req.body)
     await newListing.save()
     req.flash("success", "New Listing Created")
@@ -46,13 +55,13 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }))
 
 // Edit Listing
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
     let {id} = req.params
     const thisListing = await Listing.findById(id)
     res.render("./listings/edit.ejs", {thisListing})
 }))
 
-router.put("/:id", validateListing, wrapAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     if(!req.body) {
         throw new ExpressError(400, "Send valid data for listing")
     }
@@ -67,7 +76,7 @@ router.put("/:id", validateListing, wrapAsync(async (req, res) => {
 }))
 
 // Delete Listing
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     let {id} = req.params
     await Listing.findByIdAndDelete(id)
     req.flash("success", "Listing Deleted")
