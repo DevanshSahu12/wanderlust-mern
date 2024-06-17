@@ -20,7 +20,7 @@ router.post('/signup', wrapAsync(async (req, res) => {
             if(err) {
                 return next(err)
             }
-            req.flash("success", "Welcome new User!")
+            req.flash("success", `Welcome new User!`)
             res.redirect('/listings')
         })
     } catch (err) {
