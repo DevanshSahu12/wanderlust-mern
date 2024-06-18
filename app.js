@@ -11,6 +11,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const MongoStore = require('connect-mongo');
 
 const ExpressError = require("./utils/ExpressError.js")
 const User = require('./models/user.js')
@@ -23,8 +24,9 @@ const userRouter = require('./routes/user.js')
 const app = express()
 const PORT = 8080
 
-// Init DB
+// Init DB URLs
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust" 
+const DB_URL = process.env.ATLASDB_URL
 
 // Init ejs-mate
 app.engine('ejs', ejsMate)
@@ -42,7 +44,7 @@ app.use(express.static(path.join(__dirname, "/public")))
 
 // Connect to DB
 async function main(){
-    await mongoose.connect(MONGO_URL)
+    await mongoose.connect(DB_URL)
 }
 
 main().then(()=>{
@@ -51,8 +53,18 @@ main().then(()=>{
     console.log(err)
 })
 
+// Mongo Store
+const store = MongoStore.create({
+    mongoUrl: DB_URL,
+    crypto: {
+        secret: "secretCode",
+    },
+    touchAfter: 24 * 60 * 60,
+})
+
 // Init Session
 const sessionOptions = {
+    store: store,
     secret: "secretCode",
     resave: false,
     saveUninitialized: true,
@@ -63,9 +75,9 @@ const sessionOptions = {
     }
 }
 
-// Root
-app.get("/", (req, res)=>{
-    res.send('This is root...')
+// Store Error
+store.on("error", (req, res) => {
+    console.log("ERROR in MONGO SESSION STORE", err)
 })
 
 // Sessions
@@ -94,16 +106,6 @@ app.use((req, res, next) => {
 app.use('/listings', listingRouter)
 app.use('/listings/:id/reviews', reviewRouter)
 app.use('/user', userRouter)
-
-// app.get("/demoUser", async (req, res) => {
-//     let fakeUser = new User({
-//         email: 'student@gmail.com',
-//         username: 'student',
-//     })
-
-//     let registeredUser = await User.register(fakeUser, 'helloWorld')
-//     res.send(registeredUser)
-// })
 
 // 404 Error
 app.all("*", (req, res, next) => {
