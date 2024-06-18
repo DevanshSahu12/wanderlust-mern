@@ -2,7 +2,7 @@
 <body>
     <br />
     <h1>EDIT LISTING</h1>
-    <form method="POST" action="/listings/<%=thisListing._id%>?_method=PUT" class="needs-validation" novalidate>
+    <form method="POST" action="/listings/<%=thisListing._id%>?_method=PUT" class="needs-validation" enctype="multipart/form-data" novalidate>
         <div class="col col-8 offset-2">
             <div>
                 <label for="title" class="form-label">Title</label>
@@ -15,9 +15,8 @@
                 <div class="invalid-feedback">Invalid Description</div><br>
             </div>
             <div>
-                <label for="image" class="form-label">Image URL</label>
-                <input name="image" placeholder="Enter Image URL" type="text" value="<%=thisListing.image%>" class="form-control" required>
-                <div class="invalid-feedback">Invalid Image URL</div><br>
+                <label for="image" class="form-label">Image file</label>
+                <input name="image" placeholder="Enter Image URL" type="file" value="<%=thisListing.image%>" class="form-control">
             </div>
             <div class="row">
                 <div class="col-md-4">

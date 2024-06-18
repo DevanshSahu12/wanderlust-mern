@@ -11,7 +11,10 @@ module.exports.newListingForm = (req, res) => {
     res.render("./listings/new.ejs")
 }
 module.exports.newListing = async (req, res) => {
+    let url = req.file.path
+    let filename = req.file.filename
     let newListing = new Listing(req.body)
+    newListing.image = {url, filename}
     newListing.owner = req.user._id
     await newListing.save()
     req.flash("success", "New Listing Created")
@@ -37,7 +40,15 @@ module.exports.editListingForm = async (req, res) => {
 }
 module.exports.editListing = async (req, res) => {
     let {id} = req.params
-    await Listing.findByIdAndUpdate(id, {...req.body})
+    let updatedListing = await Listing.findByIdAndUpdate(id, {...req.body})
+    
+    if(typeof req.file !== "undefined") {
+        let url = req.file.path
+        let filename = req.file.filename
+        updatedListing.image = {url, filename}
+        await updatedListing.save()
+    }
+
     req.flash("success", "Listing Updated")
     res.redirect(`/listings/${id}`)
 }

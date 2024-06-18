@@ -6,7 +6,7 @@
             <%for(let thisListing of allListings){%>
             <div class="card col" style="width: 18rem;">
                 <a href="http://localhost:8080/listings/<%=thisListing._id%>" class="listing-link">
-                    <img src="<%=thisListing.image%>" class="card-img-top" alt="...">
+                    <img src="<%=thisListing.image.url%>" class="card-img-top" alt="...">
                     <div class="card-img-overlay"></div>
                     <div class="card-body">
                     <h5 class="card-title"><%=thisListing.title%></h5>
